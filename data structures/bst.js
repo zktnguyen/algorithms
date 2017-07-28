@@ -183,6 +183,8 @@
       temp = q.shift();
     }
   }
+
+  // Test
   var bst = new BST();
   bst.add(9);
   bst.add(4);
