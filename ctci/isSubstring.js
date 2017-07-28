@@ -7,8 +7,10 @@ a rotation of si using only one call to isSubstring (e.g.,"waterbottle"is a rota
 of "erbottlewat").
    */
   
-  function isSubstring(string, substring){
-    return true;
+  function isRotation(str1, str2){
+    var newStr = str1.concat(str1);
+
+    return isSubstring(newStr, str2);
   }
 
 }());
