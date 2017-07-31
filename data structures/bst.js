@@ -138,13 +138,34 @@
     };
 
     this.isBalanced = function(){
-      return this.findMaxHeight - 1 <= this.findMinHeight;
+      return this.findMaxHeight <= this.findMinHeight + 1;
     };
 
     this.isBinarySearch = function(){
-      
+      return isBST(this.root, Number.MIN_VALUE, Number.MAX_VALUE);
     };
   }
+  var findMaxValue = function(root){
+      if (!root){
+        return null;
+      }
+      var current = root;
+      while(current.right){
+        current = current.right;
+      }
+      return current.value;
+    }
+  var findMinValue = function(root){
+      if (!root){
+        return null;
+      }
+      var current = root;
+      while(current.left){
+        current = current.left;
+      }
+      return current.value;
+  };
+
   function inOrder(root){
     if (root){
       inOrder(root.left);
@@ -183,7 +204,50 @@
       temp = q.shift();
     }
   }
+  function findNext(root, node){
+    if (!root) return null;
+    if (root.value > node){
+      // this is if parent is the next node and node is a leaf
+      if (node === findMaxValue(root.left)){
+        return root.value;
+      }
+      if (root.left.value === node && !root.left.left && !root.left.right){
+        return root.value;
+      }
+      // return left tree
+      else {
+        return findNext(root.left, node);
 
+      }
+    }
+
+    if (root.value === node){
+      if (root.right){
+        var temp = root.right;
+        while(temp.left){
+          temp = temp.left;
+        }
+        return temp.value;
+      }
+      
+    }
+
+    
+    else {
+      return findNext(root.right, node);
+    }
+  }
+
+  function isBST(root, min, max){
+    if (root === null){
+      return true;
+    }
+    if (root.value < min || root.value > max){
+      return false;
+    }
+
+    return isBST(root.left, min, root.value - 1) && isBST(root.right, root.value + 1, max);
+  }
   // Test
   var bst = new BST();
   bst.add(9);
@@ -198,7 +262,6 @@
   bst.add(10);
   console.log("inOrder");
   inOrder(bst.getRoot());
-  bst.remove(5);
   console.log("inOrder after remove 5");
   inOrder(bst.getRoot());
   console.log("Min: " + bst.findMinValue());
@@ -206,6 +269,9 @@
   console.log("Min Height: " + bst.findMinHeight());
   console.log("Max Height: " + bst.findMaxHeight());
   console.log(bst.isBalanced());
+  console.log(bst.isBinarySearch());
+  console.log(findNext(bst.getRoot(), 10));
+
   // console.log("levelOrder");
   // BFS(bst.getRoot());
   // console.log("preOrder");

@@ -18,7 +18,7 @@
       var code = hash(key, this.size);
 
       if (bucket[code] === undefined){
-        this.bucket[code] = [ [key, value] ];
+        bucket[code] = [ [key, value] ];
       }
       else {
         var added = false;
@@ -57,6 +57,9 @@
       if (bucket[code] === undefined){
         return undefined;
       }
+      if (bucket[code].length === 1 && bucket[code][0][0] === key){
+        return bucket[code][0][1];
+      }
       else {
         for (var i = 0 ; i < bucket[code].length; i++){
           if (bucket[code][i][0] === key){
@@ -67,4 +70,16 @@
     };
 
   }
+
+  var table = new HashTable(10);
+  table.add('Car', '1984 Lexus');
+  table.add('House', 'Condo');
+  table.add('Name', 'Brandon');
+  table.add('Kim', '5104279643');
+  table.add('Car', '1329 Lexus');
+    console.log(table.lookup('Car'));
+
+  table.remove('Car');
+    console.log(table.lookup('Car'));
+
 }());
