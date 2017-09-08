@@ -6,6 +6,9 @@
     arr[j] = temp;
   }
 
+  // partition function
+  // returns the left most index that has not been partitioned yet
+  
   function partition(arr, low, high){
     var pivot = arr[high];
     var left = low;
