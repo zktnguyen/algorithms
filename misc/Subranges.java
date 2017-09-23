@@ -3,6 +3,34 @@ import java.io.*;
 
 public class Subranges {
   private static final String FILENAME = "input.txt";
+  private static HashMap<String, Integer> cache = new HashMap();
+  private static int subrange(ArrayList<Integer> prices, int start, int end) {
+    int decreasingRanges = 0, increasingRanges = 0;
+    
+    System.out.println(prices.get(start));
+    for (int j = start; j < end; j++){
+      
+      if ( j+1 != end && prices.get(j) <= prices.get(j+1)){
+        increasingRanges++;
+      }
+      else if (j + 1 != end) {
+        decreasingRanges++;
+      }
+    }
+    
+    return increasingRanges - decreasingRanges;
+  }
+
+  private static void subranges(int N, int K, ArrayList<Integer> prices) {
+    for (int i = 0; i < N- K + 1; i++){
+      int start = i;
+      int end = i + K;
+      if (end <= N){
+        System.out.println(subrange(prices, start, end));
+      }
+    }
+  }
+
   public static void main (String[] args) {
     String s1 = "", s2 = "";
     try {
@@ -33,27 +61,6 @@ public class Subranges {
       listOfPrices.add(Integer.parseInt(s));
     }
 
-    int decreasingRanges = 0;
-    int increasingRanges = 0;
-
-    for (int i = 0; i < N- K + 1; i++){
-      int end = i + K;
-      if (end <= N){
-        System.out.println(listOfPrices.get(i));
-        for (int j = i; j < end; j++){
-          if ( j+1 != i + K && listOfPrices.get(j) <= listOfPrices.get(j+1)){
-            increasingRanges++;
-          }
-          else if (j + 1 != i + K) {
-            decreasingRanges++;
-          }
-        }
-      }
-      System.out.println(increasingRanges);
-      System.out.println(decreasingRanges);
-      increasingRanges = 0;
-      decreasingRanges = 0;
-    }
-
+    subranges(N, K, listOfPrices);
   }
 }
