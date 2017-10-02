@@ -5,22 +5,25 @@ function multiplicativePairs(A, B){
     return 0;
   }
   
-  var count = 0, pairs = 0, temp = 0, bIterator = 0;
-  temp = A[N - 1];
-  A[N - 1] = temp + B[N-1] / 1000000;
+  var count = 0, pairs = 0, bIterator = 0;
+  A[N - 1] += B[N-1] / 1000000;
   B[N-1] = 0;
   for (var i = 0; i < N-1; i++){
-    temp = A[i];
-    A[i] = temp + B[i] / 1000000;
+    A[i] += B[i] / 1000000;
     if (A[i] > 1){
       B[i] = A[i] / (A[i] - 1);
     }
     else {
+      if (A[i] === 1){
+        B[i] = 1;
+      }
       /** 
        * Larger than largest value A[i] can be
        * since it will not be multiplicative with any pair
       */
-      B[i] = 1020;
+      else {
+        B[i] = 1020;
+      }
     }
 
     // Skip over any values too large to find a pair with
@@ -28,10 +31,15 @@ function multiplicativePairs(A, B){
       bIterator++;
     }
   }
-  
+  console.log(A);
+  console.log(B);
   i = N - 1;
   while(bIterator < i){
-    if (B[bIterator] <= A[i]){
+    if (B[bIterator] === 1 && A[i] === 1){
+      count = i - bIterator;
+      pairs += count;
+    }
+    else if (B[bIterator] <= A[i]){
       count = i - bIterator;
       pairs += count;
     }
@@ -45,4 +53,4 @@ function multiplicativePairs(A, B){
   return pairs > 1000000 ? 1000000 : pairs;
 }
 
-console.log(multiplicativePairs([0,1,2,2,2,3,5],[500000,500000,0,0,0,0,20000]));
+console.log(multiplicativePairs([0, 1, 2, 2, 3, 5],[500000, 500000, 0, 0, 0, 20000]));
