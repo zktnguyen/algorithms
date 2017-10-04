@@ -1,56 +1,38 @@
-function multiplicativePairs(A, B){
-  // check length of either, since they are equal length
+function multiplicative(A, B){
   var N = A.length;
-  if (N === 0){
+  
+  if (N === 0 || N === 1){
     return 0;
   }
-  
-  var count = 0, pairs = 0, bIterator = 0;
-  A[N - 1] += B[N-1] / 1000000;
-  B[N-1] = 0;
-  for (var i = 0; i < N-1; i++){
+
+  for (var i = 0; i < N; i++){
     A[i] += B[i] / 1000000;
-    if (A[i] > 1){
-      B[i] = A[i] / (A[i] - 1);
-    }
-    else {
-      if (A[i] === 1){
-        B[i] = 1;
-      }
-      /** 
-       * Larger than largest value A[i] can be
-       * since it will not be multiplicative with any pair
-      */
-      else {
-        B[i] = 1020;
-      }
-    }
-
-    // Skip over any values too large to find a pair with
-    if (i > 0 && B[bIterator] > A[N-1]){
-      bIterator++;
-    }
-  }
-  console.log(A);
-  console.log(B);
-  i = N - 1;
-  while(bIterator < i){
-    if (B[bIterator] === 1 && A[i] === 1){
-      count = i - bIterator;
-      pairs += count;
-    }
-    else if (B[bIterator] <= A[i]){
-      count = i - bIterator;
-      pairs += count;
-    }
-    else {
-      bIterator++;
-      i++;
-    }
-    i--;
   }
 
-  return pairs > 1000000 ? 1000000 : pairs;
+  var P = 0, Q = N - 1, mult = 0, add = 0, pairs = 0, count = 0;
+  var zeroes = 0;
+  while(P < Q){
+    mult = A[P] * A[Q];
+    add = A[P] + A[Q];
+    if (mult >= add){
+      count = Q - P;
+      pairs += count;
+      Q--;
+    }
+    else {
+      if (A[P] === 0){
+        zeroes++;
+      }
+      P++;
+    }
+  }
+  while (zeroes > 0){
+    pairs += zeroes - 1;
+    zeroes--;
+  }
+  return pairs === 1000000 ? 1000000 : pairs;
 }
 
-console.log(multiplicativePairs([0, 1, 2, 2, 3, 5],[500000, 500000, 0, 0, 0, 20000]));
+console.log(multiplicative([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,50,50,50,50,50,50,50,50,50,50,50,50]));
+console.log(multiplicative([0,0,0,0,0,0,1,1,2,2,3,5],[0,0,0,0,0,500000,0,500000,0,0,0,0]));
+console.log(multiplicative([0,1,2,2,3,5], [500000, 500000, 0, 0, 0, 20000]));
