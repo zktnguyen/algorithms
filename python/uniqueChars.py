@@ -5,5 +5,6 @@ def uniqueChars(str):
       return False
     else:
       d[c] = 1
-  return true
+  return True
 
+print(uniqueChars("asdfff"))
