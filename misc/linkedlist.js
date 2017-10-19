@@ -26,8 +26,11 @@ function solution(L){
   return count;
 }
 
-
-/* var L = new IntList(1);
+// In case you care! Complexity: O(N) runtime, O(1) space for solution function
+/* //Some tests:
+var L = null;
+console.log(solution(L)); // output = 0
+L = new IntList(1);
 L.next = new IntList(2);
 L.next.next = new IntList(3);
 L.next.next.next = new IntList(4);

@@ -47,6 +47,7 @@
         return searchFor(current);
       }
     };
+    
     this.remove = function(data){
       // if it's the root, please reassign the root....
       // else check for the node to switch
