@@ -36,7 +36,7 @@ public class MyStack {
       size--;
       return popNode.value;
     }
-    return null;
+    return -1000;
   }
 
 
@@ -45,12 +45,12 @@ public class MyStack {
       return top.value;
     }
 
-    return null;
+    return -1000;
   }
 
   public boolean isEmpty() {
     return size == 0;
   }
 
-  
+
 }
