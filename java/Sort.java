@@ -43,6 +43,7 @@ public class Sort {
       list[j] = current;
     }
   }
+  
   private void merge(int[] list, int lo, int high){
     int length = list.length;
     if (lo < high){
@@ -52,6 +53,7 @@ public class Sort {
       mergeSort(list, lo, mid, high);
     }
   }
+
   private void mergeSort(int[] list, int lo, int mid, int high){
     int leftLength = mid - lo + 1;
     int rightLength = high - mid;
