@@ -120,11 +120,13 @@ public class BinarySearchTree {
 
   private boolean isBinarySearch(Node root, int min, int max) {
     if (root == null) return true;
-    if (root.left.value < min || root.right.value > max) {
+    if (root.value <= min || root.value > max) {
       return false;
     }
 
-    return isBinarySearch(root.left, min, root.value - 1) && isBinarySearch(root.right, root.value + 1, max);
+    return isBinarySearch(root.left, min, root.value) && isBinarySearch(root.right, root.value, max);
   }
+
   
+
 }
