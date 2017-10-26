@@ -133,8 +133,7 @@ algorithm to create a binary search tree with minimal height.
 4.5
 Implement a function to check if a binary tree is a binary search tree.
 - keep a maximum and minimum value, to check the bounds of the tree
-- compare the parent node to its child nodes, if left child node is greater, not a BST
-    - if right node greater, not a BST
+
 '''
 '''
 4.6
