@@ -1,7 +1,8 @@
 public class leastCommonSubsequence {
   
   public static LCS(char[] A, char[] B) {
-    int[][] L = new int[A.length + 1][B.length + 1];
+    int len1 = A.length, len2 = B.length;
+    int[][] L = new int[len1 + 1][len2 + 1];
     L[0][0] = 0;
 
     for (int i = 0; i <= A.length; i++) {
@@ -16,7 +17,7 @@ public class leastCommonSubsequence {
       }
     }
 
-    return L[A.length][B.length];
+    return L[len1][len2];
   }
   
   public static void main(String[] args) {
