@@ -24,6 +24,7 @@
       // else, search through the tree for the proper placement
       else {
         var newNode = new Node(data);
+        // Go down the tree, check left and right depending on value
         var searchFor = function(node){
           // if the current node is null, this is where it should go
           if (data < node.value){
@@ -51,11 +52,13 @@
     this.remove = function(data){
       // if it's the root, please reassign the root....
       // else check for the node to switch
-      var removeAt = function(node, data){
+      var removeAt = function(node, nodeData){
+        // if Root is null, return null
         if(node === null){
           return node;
         }
-        if (data === node.value){
+        // otherwise, if the root is the value we are matching
+        if (nodeData === node.value){
           // is a leaf
           if (node.left === null && node.right === null){
             return null;
@@ -67,20 +70,23 @@
           if (!node.right){
             return node.left;
           }
-          // 2 children
+          // 2 children means we have to take the root's successor
+          // which is the left most node on the right tree.
           var tempNode = node.right;
           while (tempNode.left){
             tempNode = tempNode.left;
           }
-          node.value = temp.left;
+          node.value = tempNode.value;
           node.right = removeAt(node.right, tempNode.value);
         }
-        else if (data < node.value){
-          node.left = removeAt(node.left, data);
+        // Look to the left, recursive call
+        else if (nodeData < node.value){
+          node.left = removeAt(node.left, nodeData);
           return node;
         }
+        // Look to the right, recursive call
         else {
-          node.right = removeAt(node.right, data);
+          node.right = removeAt(node.right, nodeData);
           return node;
         }
 
@@ -155,7 +161,7 @@
         current = current.right;
       }
       return current.value;
-    }
+    };
   var findMinValue = function(root){
       if (!root){
         return null;
@@ -247,7 +253,8 @@
       return false;
     }
 
-    return isBST(root.left, min, root.value - 1) && isBST(root.right, root.value + 1, max);
+    return isBST(root.left, min, root.value - 1) 
+    && isBST(root.right, root.value + 1, max);
   }
   // Test
   var bst = new BST();

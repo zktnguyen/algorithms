@@ -44,7 +44,7 @@
 
     this.isEmpty = function(){
       return size === 0;
-    }
+    };
   }
 
   var stk = new Stack();

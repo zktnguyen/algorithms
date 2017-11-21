@@ -49,7 +49,6 @@
         }
         return current;
       }
-      return null;
     };
 
     this.removeAt = function(index){
