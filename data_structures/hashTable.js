@@ -75,7 +75,7 @@
   table.add('Car', '1984 Lexus');
   table.add('House', 'Condo');
   table.add('Name', 'Brandon');
-  table.add('Kim', '5104279643');
+  table.add('Kim', '5104279444');
   table.add('Car', '1329 Lexus');
     console.log(table.lookup('Car'));
 

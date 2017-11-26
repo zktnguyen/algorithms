@@ -10,9 +10,11 @@
   // returns the left most index that has not been partitioned yet
   
   function partition(arr, low, high){
+    // pivot is chosen as the right most element
     var pivot = arr[high];
     var left = low;
-
+    // go through the subarray, and swap elements smaller than the pivot
+    // to the left
     for (var j = low; j < high; j++){
       if (arr[j] < pivot){
         swap(arr, left++, j);
@@ -30,9 +32,13 @@
     }
     
     if (low < high){
+      // Get the new partition index, the partition index will be in the right place
       var partitionIndex = partition(arr, low, high);
       
+      // this will sort the first half of the array up to partition index
       quickSort(arr, low, partitionIndex - 1);
+
+      // sorts the second half after the partition index
       quickSort(arr, partitionIndex + 1, high);
     }
     return arr;
