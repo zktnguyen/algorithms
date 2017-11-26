@@ -94,8 +94,8 @@
       this.root = removeAt(this.root, data);
     };
 
-    
-    
+    // This function traverses down the left subtree of a binary tree.
+    // As a result, it will return the minimum value that is the leftmost leaf.
     this.findMinValue = function(){
       if (!this.root){
         return null;
@@ -107,6 +107,8 @@
       return current.value;
     };
 
+    // This function traverses down the right subtree of a binary tree.
+    // As a result, ti will return the maximum value that is the rightmost leaf.
     this.findMaxValue = function(){
       if (!this.root){
         return null;
@@ -118,12 +120,13 @@
       return current.value;
     };
     
+    // This will return the minimum height of the tree.
     this.findMinHeight = function(){
       var minHeight = function(node){
         if (!node){
           return 0;
         }
-        var left = minHeight(node.left);
+        var left = minHeight(node.left); // either 1 or 0
         var right = minHeight(node.right);
 
         return Math.min(left, right) + 1;
@@ -131,6 +134,7 @@
       return minHeight(this.root);
     };
 
+    // This will return the maximum height of the tree.
     this.findMaxHeight = function(){
       var maxHeight = function(node){
         if (!node){
@@ -144,10 +148,14 @@
       return maxHeight(this.root);
     };
 
+    // A balanced tree is defined as a tree with a minimum height 
+    // that is at most 1 smaller than the maximum height.
     this.isBalanced = function(){
       return this.findMaxHeight <= this.findMinHeight + 1;
     };
 
+    // Binary search tree is defined as a tree where for each node, its value is less than its right child,
+    // and the left child is less than the node's value.
     this.isBinarySearch = function(){
       return isBST(this.root, Number.MIN_VALUE, Number.MAX_VALUE);
     };
