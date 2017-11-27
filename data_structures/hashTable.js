@@ -11,11 +11,10 @@
     return key % bucketSize;
   }
 
-  
   function HashTable(size){
-    var bucket = [];
+    this.bucket = [];
     this.size = size;
-
+    this.count = 0;
     // This is the bucket version of a Hash Table, where key, value pairs
     // with the same hash code are added into the same
     // entry in the table in an array fashion.
@@ -41,9 +40,15 @@
           bucket[code].push([key, value]);
         }
       }
+
+      if (this.count > this.size * 0.75) {
+        this.resize(this.size * 2);
+      }
+      this.count++;
     };
 
     // Removes the matching key, value pair from the table.
+    // Returns true if there is a matching key and value pair.
     this.remove = function(key){
       var code = hash(key, this.size);
       // There is no key, value pair!
@@ -53,6 +58,7 @@
       // if there are no collisions, the key must match
       else if (bucket[code].length === 1 && bucket[code][0][0] === key){
         delete bucket[code];
+        this.count--;
         return true;
       }
       else {
@@ -60,9 +66,13 @@
           if (bucket[code][i][0] === key){
             var tempBucket = [...bucket[code].slice(0, i), ...bucket[code].slice(i+1)];
             bucket[code] = tempBucket;
+            this.count--;
             return true;
           }
         }
+      }
+      if (this.count < this.size * 0.25) {
+        this.resize(this.size / 2);
       }
       return false;
     };
@@ -83,6 +93,26 @@
         }
       }
     };
+
+    this.resize = function(newSize) {
+      var oldBucket = this.bucket;
+      
+      // reset this hash table instance's variables.
+      this.size = newSize;
+      this.bucket = [];
+      this.count = 0;
+      // This goes through the whole bucket, and i represents the hash code.
+      for (var i = 0 ; i < oldBucketSize.length; i++) {
+        // Iterate through the individual buckets (there may be collisions).
+        for (var j = 0; j < oldBucketSize[i].length; j++) {
+          // Extract the key and value
+          var key = oldBucket[i][j][0],
+            value = oldBucket[i][j][1];
+          // Add into new bucket.
+          this.add(key, value);
+        }
+      }
+    }
 
   }
 
