@@ -4,16 +4,21 @@
   function Stack(){
     var storage = [];
     var size = 0;
-    var min = [Number.MAX_VALUE];
+    var min = [Number.MAX_VALUE]; // Better implementation = make it a stack
 
+    // 
     this.push = function(data){
       storage.push(data);
-      if (data < min[size]){
+      // reassign minimum
+      if (data <= min[size]){
         size++;
         min[size] = data;
       }
+      
       else {
         size++;
+
+        // inefficient minimum
         min[size] = min[size-1];
       }
       
@@ -24,8 +29,11 @@
       if (size <= 0){
         return null;
       }
+      // Returns the front element after removing the element.
       value = storage.splice(-1,1)[0];
+      // Decrease the size since we popped an element.
       size--;
+      // min stack should be popped too.
       min.splice(-1, 1);
       return value;
     };
@@ -41,7 +49,8 @@
     this.print = function(){
       console.log(storage);
     };
-
+    
+    // Returns boolean (true or false) depending if there are any elements or not.
     this.isEmpty = function(){
       return size === 0;
     };
